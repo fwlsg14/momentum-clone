@@ -5,20 +5,17 @@ const TODO_BTN = TODO.querySelector("#todo-btn");
 const TODO_CONTAINER = TODO.querySelector("#todo-container");
 const NEW_TODO_BTN = TODO_CONTAINER.querySelector(`#new-todo-btn`);
 const NEW_TODO_FORM = TODO_CONTAINER.querySelector(`#new-todo-form`);
-const TODAY_TODO = TODO_CONTAINER.querySelector("#todoToday");
-const TODAY_TODO_BTN = TODO_CONTAINER.querySelector(`#todoToday-btn`);
-const TODAY_TODO_FORM = TODAY_TODO.querySelector("form");
 
 //모듈 변수
 let todo = {};
-todo.todoToday = [];
 todo.arrayList = [];
 
 //초기 실행 함수
 todo.init = function () {
-  todo.getNewTodo();
+  todo.getNewTodoTab();
   todo.loadArrayList();
   todo.listenMouseEvents();
+  TODO_CONTAINER.querySelector(`#todoToday`).classList.remove(`hidden`);
 };
 //마우스 이벤트 처리
 todo.toggleTodo = function () {
@@ -28,7 +25,7 @@ todo.toggleTodo = function () {
 todo.listenMouseEvents = function () {
   TODO_BTN.addEventListener("mousedown", todo.toggleTodo);
   NEW_TODO_BTN.addEventListener("mousedown", todo.openNewTodoTab);
-  TODAY_TODO_BTN.addEventListener("mousedown", todo.openTab);
+  // TODAY_TODO_BTN.addEventListener("mousedown", todo.openTab);
 };
 //열려있는 ul 또는 form 확인
 todo.checkOpenTabs = function () {
@@ -63,22 +60,108 @@ todo.openTab = function (event) {
   const targetUl = TODO_CONTAINER.querySelector(`#${targetUlId}`);
   reveal(targetUl);
 };
+//새로운 Todo-tab 감지
+todo.getNewTodoTab = function () {
+  NEW_TODO_FORM.addEventListener("submit", todo.handleNewTodoTabSubmit);
+};
+//새로운  Todo-tab 처리
+todo.handleNewTodoTabSubmit = function (event) {
+  event.preventDefault();
+  //값 받아오기
+  const form = event.target;
+  const input = form.querySelector("input");
+  const name = input.value;
+  input.value = "";
+  //todo-tab 생성하기
+  todo.createTodoTab(name);
+  //array에 넣는다
+  todo.arrayList.push(name);
+  todo[name] = [];
+  //localstorage에 저장한다
+  todo.saveTodoTabs();
+  //자동으로 tab 열기
+  hide(NEW_TODO_FORM);
+  reveal(TODO_CONTAINER.querySelector(`#${name}`));
+};
 //새로운 Todo 감지
-todo.getNewTodo = function () {
-  TODAY_TODO_FORM.addEventListener("submit", todo.handleNewTodoSubmit);
+todo.getNewTodo = function (target) {
+  target.addEventListener("submit", todo.handleNewTodoSubmit);
 };
 //새로운 Todo 처리
 todo.handleNewTodoSubmit = function (event) {
   event.preventDefault();
+  //값 받아오기
   const form = event.target;
   const ul = form.parentNode;
   const ulId = ul.id;
   const input = form.lastElementChild;
   const inputValue = input.value;
+  input.value = "";
+  //todo 생성하기
   todo.createTodo(ulId, inputValue);
+  //localstorage에 넣기
+  todo.saveTodos(ulId);
+};
+//Todo-tab 생성
+todo.createTodoTab = function (ulId) {
+  let name = ulId;
+  //ul element 생성
+  const ul = document.createElement("ul");
+  ul.id = name;
+  ul.classList.add("hidden");
+  const ulForm = document.createElement("form");
+  const ulInput = document.createElement("input");
+  ulInput.placeholder = "New Todo";
+  //form에 event를 만든다
+  todo.getNewTodo(ulForm);
+  ulForm.appendChild(ulInput);
+  ul.appendChild(ulForm);
+  //delete-button을 만든다 todoToday는 만들지 않는다
+  if (name !== "todoToday") {
+    const deleteButton = document.createElement("button");
+    const span2 = document.createElement("span");
+    span2.innerText = `Delete Tab`;
+    deleteButton.appendChild(span2);
+    //delete-button에 event를 만든다
+    deleteButton.addEventListener("mousedown", todo.deleteTodoTab);
+    //delete-button은 맨뒤에 넣는다
+    ul.appendChild(deleteButton);
+  }
+  //새로운 ul은 마지막에 넣는다
+  TODO_CONTAINER.insertAdjacentElement("beforeend", ul);
+  //button element 생성
+  const button = document.createElement("button");
+  button.id = `${name}-btn`;
+  const span = document.createElement("span");
+  if (name === "todoToday") {
+    span.innerText = "Today";
+  } else {
+    span.innerText = `${name}`;
+  }
+  button.appendChild(span);
+  //button에 event를 만든다
+  button.addEventListener("mousedown", todo.openTab);
+  //새로운 button은 마지막 button 뒤에 넣는다
+  const elements = TODO_CONTAINER.children; //HTML collection을 뱉는데 array method를 안먹는다
+  const buttons = (function () {
+    let array = [];
+    const length = elements.length;
+    for (let i = 0; i < length; i++) {
+      if (elements[i].tagName === "BUTTON") {
+        //참을 판별할때 tagName을 소문자로 하면 참이 나오지 않는다
+        array.push(elements[i]);
+      }
+    }
+    return array;
+  })();
+  const length = buttons.length;
+  const lastButton = buttons[length - 1];
+  lastButton.insertAdjacentElement("afterend", button);
 };
 //Todo 생성
 todo.createTodo = function (ulId, text) {
+  console.log(ulId);
+  //element 생성하기
   const ul = TODO_CONTAINER.querySelector(`#${ulId}`);
   const newId = todo[`${ulId}`].length;
   const list = document.createElement("li");
@@ -94,23 +177,21 @@ todo.createTodo = function (ulId, text) {
   list.appendChild(span);
   list.appendChild(button);
   list.id = `${ulId}${newId}`;
+  //첫 todo는 맨위에 그 다음부터는 마지막 todo 뒤에 넣기
   if (newId === 0) {
     ul.insertAdjacentElement("afterbegin", list);
   } else {
     ul.querySelector(`#${ulId}${newId - 1}`).insertAdjacentElement("afterend", list);
   }
+  //array에 넣기
   const object = {
     id: `${ulId}${newId}`,
     text: text,
   };
   todo[`${ulId}`].push(object);
-  todo.saveTodos(ulId);
+  return;
 };
-//todo 배열 로컬스토리지에 저장
-todo.saveTodos = function (ulId) {
-  localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
-};
-// 로컬스토리지에서 배열리스트 불러오기
+// 로컬스토리지에서 arrayList 불러오기
 todo.loadArrayList = function () {
   const arrayList = localStorage.getItem(`arrayList`);
   if (arrayList === null) {
@@ -119,19 +200,54 @@ todo.loadArrayList = function () {
   } else {
     todo.arrayList = JSON.parse(localStorage.getItem("arrayList"));
   }
-  todo.arrayList.forEach(function (array) {
-    todo.loadTodos(array);
+  //Todo-Tab 불러오기
+  todo.arrayList.forEach(function (name) {
+    todo.loadTodoTab(name);
   });
 };
-//로컬스토리지에서 todo 배열 불러오기
-todo.loadTodos = function (text) {
-  const parsedTodos = JSON.parse(localStorage.getItem(`${text}`));
+//arrayList 로컬스토리지에 저장하기
+todo.saveTodoTabs = function () {
+  localStorage.setItem(`arrayList`, JSON.stringify(todo.arrayList));
+};
+//로컬스토리지에서 todo-tab 불러오기
+todo.loadTodoTab = function (name) {
+  todo.createTodoTab(name);
+  const parsedTodos = JSON.parse(localStorage.getItem(`${name}`));
   if (parsedTodos !== null) {
+    // todo[`${name}`] = parsedTodos;
+    todo[`${name}`] = [];
     parsedTodos.forEach(function (array) {
-      todo.createTodo(text, array.text);
+      todo.createTodo(name, array.text);
     });
-    todo[`${text}`] = parsedTodos;
+  } else {
+    todo[`${name}`] = [];
   }
+};
+//Todo-Tab을 삭제
+todo.deleteTodoTab = function (event) {
+  let button = event.target;
+  if (button.tagName !== "BUTTON") {
+    button = button.parentNode;
+  }
+  const ul = button.parentNode;
+  const ulId = ul.id;
+  //element를 삭제
+  TODO_CONTAINER.removeChild(ul);
+  TODO_CONTAINER.removeChild(TODO_CONTAINER.querySelector(`#${ulId}-btn`));
+  //array 지우기
+  todo[`${ulId}`] = [];
+  todo.arrayList = todo.arrayList.filter(function (arg) {
+    return arg !== ulId;
+  });
+  //로컬 스토리지에 저장
+  todo.saveTodoTabs();
+  todo.saveTodos(ulId);
+  //자동으로 todoToday탭을 연다
+  TODO_CONTAINER.querySelector(`#todoToday`).classList.remove(`hidden`);
+};
+//todo 로컬스토리지에 저장
+todo.saveTodos = function (ulId) {
+  localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
 };
 //todo 삭제
 todo.removeTodo = function (event) {
@@ -193,4 +309,5 @@ todo.removeTodo = function (event) {
   //array를 저장
   todo.saveTodos(ulId);
 };
+
 todo.init();
