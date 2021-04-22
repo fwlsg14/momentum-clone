@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Tab</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="backgrounds"></div>
+    <section id="top-row">
+      <section id="top-left">
+        <article id="links">
+          <button id="links-btn">
+            <span>Links</span>
+          </button>
+          <div id="links-container" class="hidden">
+            <ul id="links-list"></ul>
+          </div>
+          <div id="new-link-tab" class="hidden">
+            <form>
+              <label for="new-link-name">Name</label>
+              <input type="text" id="new-link-name" />
+              <label for="new-link-url">Link</label>
+              <input type="text" id="new-link-url" />
+              <input type="submit" value="Create" />
+            </form>
+          </div>
+        </article>
+      </section>
+      <section id="top-right">
+        <article id="weather">
+          <span>Weather</span>
+        </article>
+      </section>
+    </section>
+    <section id="center">
+      <section id="time-section">
+        <article id="normal-clock">
+          <time>00:00</time>
+          <button id="normal-clock__btn" class="hidden">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div id="normal-clock__menu" class="hidden">
+            <ul>
+              <li id="toggle-24-hour">24-hour clock</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+      <section id="mantra-section">
+        <form id="new-username">
+          <p>Hello, what's your name?</p>
+          <input type="text" />
+        </form>
+        <article id="mantra">
+          <p></p>
+          <button id="mantra__btn" class="hidden">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div id="mantra__menu" class="hidden">
+            <ul>
+              <li id="edit-name-btn">
+                <span>Edit your name</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </section>
+      <section id="focus-section">
+        <article id="focus">
+          <h3>What is your main focus for today?</h3>
+          <input type="text" />
+        </article>
+      </section>
+    </section>
+    <section id="bottom-row">
+      <section id="bottom-left">
+        <article id="setting"><i class="fas fa-cog"></i></article>
+        <article id="photo-info"><span>Photo</span></article>
+      </section>
+      <section id="bottom-right">
+        <article id="todo">
+          <button id="todo-btn">
+            <span>Todo</span>
+          </button>
+          <div id="todo-container" class="hidden">
+            <button id="new-todo-btn"><i class="far fa-plus-square"></i></button>
+            <button id="todoToday-btn"><span>Today</span></button>
+            <form id="new-todo-form" class="hidden">
+              <label for="new-todo-name">Name</label>
+              <input type="text" id="new-todo-name" />
+              <input type="submit" value="Add" />
+            </form>
+            <ul id="todoToday">
+              <form>
+                <input type="text" placeholder="New Todo" />
+              </form>
+            </ul>
+            <ul id="aaa" class="hidden">
+              aaa
+            </ul>
+            <ul id="bbb" class="hidden">
+              bbb
+            </ul>
+          </div>
+        </article>
+      </section>
+    </section>
+    <script src="js/common.js"></script>
+    <script src="js/links.js"></script>
+    <script src="js/times.js"></script>
+    <script src="js/mantra.js"></script>
+    <script src="js/todo.js"></script>
+    <script
+      src="https://kit.fontawesome.com/500d028050.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
