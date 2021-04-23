@@ -5,3 +5,7 @@
 .hidden {
   display: none;
 }
+.todo-checked {
+  text-decoration: line-through;
+  font-style: italic;
+}

@@ -1,4 +1,3 @@
-// newtodo form처리부터 시작
 // 전역상수 대문자스네이크케이스
 const TODO = document.querySelector("#todo");
 const TODO_BTN = TODO.querySelector("#todo-btn");
@@ -25,7 +24,6 @@ todo.toggleTodo = function () {
 todo.listenMouseEvents = function () {
   TODO_BTN.addEventListener("mousedown", todo.toggleTodo);
   NEW_TODO_BTN.addEventListener("mousedown", todo.openNewTodoTab);
-  // TODAY_TODO_BTN.addEventListener("mousedown", todo.openTab);
 };
 //열려있는 ul 또는 form 확인
 todo.checkOpenTabs = function () {
@@ -59,6 +57,31 @@ todo.openTab = function (event) {
   const targetUlId = buttonId.slice(0, -4);
   const targetUl = TODO_CONTAINER.querySelector(`#${targetUlId}`);
   reveal(targetUl);
+};
+//체크박스 처리
+todo.handleCheckboxEvent = function (event) {
+  const target = event.target;
+  const list = target.parentNode;
+  const listId = list.id;
+  const ul = list.parentNode;
+  const ulId = ul.id;
+  const split = listId.split(ulId);
+  const id = split[1];
+  if (target.checked === true) {
+    list.classList.add(`todo-checked`);
+    //array에 check변수 변경
+    todo[`${ulId}`][id].checked = true;
+    console.log(todo[`${ulId}`][id]);
+    //array를 로컬스토리지에 저장
+    localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
+  } else {
+    list.classList.remove(`todo-checked`);
+    //array에 check변수 변경
+    todo[`${ulId}`][id].checked = false;
+    console.log(todo[`${ulId}`][id]);
+    //array를 로컬스토리지에 저장
+    localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
+  }
 };
 //새로운 Todo-tab 감지
 todo.getNewTodoTab = function () {
@@ -98,7 +121,7 @@ todo.handleNewTodoSubmit = function (event) {
   const inputValue = input.value;
   input.value = "";
   //todo 생성하기
-  todo.createTodo(ulId, inputValue);
+  todo.createTodo(ulId, inputValue, false);
   //localstorage에 넣기
   todo.saveTodos(ulId);
 };
@@ -158,22 +181,31 @@ todo.createTodoTab = function (ulId) {
   const lastButton = buttons[length - 1];
   lastButton.insertAdjacentElement("afterend", button);
 };
-//Todo 생성
-todo.createTodo = function (ulId, text) {
-  console.log(ulId);
+// Todo 생성
+todo.createTodo = function (ulId, text, checked) {
   //element 생성하기
   const ul = TODO_CONTAINER.querySelector(`#${ulId}`);
   const newId = todo[`${ulId}`].length;
   const list = document.createElement("li");
+  const checkbox = document.createElement("input");
   const span = document.createElement("span");
   const button = document.createElement("button");
   const icon = document.createElement("i");
   const iconClass = document.createAttribute("class");
+  checkbox.type = "checkbox";
+  checkbox.addEventListener("input", todo.handleCheckboxEvent);
+  if (checked === true) {
+    const listClass = document.createAttribute("class");
+    listClass.value = "todo-checked";
+    list.setAttributeNode(listClass);
+    checkbox.checked = true;
+  }
   span.innerText = text;
   iconClass.value = `fas fa-times`;
   icon.setAttributeNode(iconClass);
   button.appendChild(icon);
   button.addEventListener("click", todo.removeTodo);
+  list.appendChild(checkbox);
   list.appendChild(span);
   list.appendChild(button);
   list.id = `${ulId}${newId}`;
@@ -187,6 +219,7 @@ todo.createTodo = function (ulId, text) {
   const object = {
     id: `${ulId}${newId}`,
     text: text,
+    checked: checked,
   };
   todo[`${ulId}`].push(object);
   return;
@@ -217,7 +250,7 @@ todo.loadTodoTab = function (name) {
     // todo[`${name}`] = parsedTodos;
     todo[`${name}`] = [];
     parsedTodos.forEach(function (array) {
-      todo.createTodo(name, array.text);
+      todo.createTodo(name, array.text, array.checked);
     });
   } else {
     todo[`${name}`] = [];
