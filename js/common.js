@@ -7,3 +7,7 @@ function hide(arg) {
 function toggleHidden(arg) {
   arg.classList.toggle("hidden");
 }
+//로컬 json 파일 불러오기
+// function loadJSON() {
+//   let x;
+// }

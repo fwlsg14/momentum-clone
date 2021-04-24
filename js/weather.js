@@ -101,13 +101,12 @@ weather.getWeather = function () {
         WEATHER_BRIEF.appendChild(img);
         WEATHER_BRIEF.appendChild(tempSpan);
         WEATHER_BRIEF.appendChild(location);
-        //상세한 날씨표시
       });
   }
 };
-// weather-brief 클릭시 weather-detail 토글
-weather.toggleWeatherDetail = function () {
-  toggleHidden(WEATHER_DETAIL);
-};
+// // weather-brief 클릭시 weather-detail 토글
+// weather.toggleWeatherDetail = function () {
+//   toggleHidden(WEATHER_DETAIL);
+// };
 
 weather.init();

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div id="backgrounds"></div>
     <section id="top-row">
       <section id="top-left">
         <article id="links">
@@ -32,7 +31,7 @@
       <section id="top-right">
         <article id="weather">
           <div id="weather-brief"></div>
-          <div id="weather-detail"></div>
+          <!-- <div id="weather-detail"></div> 내용이 너무 방대해진다 -->
         </article>
       </section>
     </section>
@@ -70,19 +69,18 @@
         </article>
       </section>
       <!-- 효용성에 의문이 든다 지울지 고민 중 -->
-      <section id="focus-section">
+      <!-- <section id="focus-section">
         <article id="focus">
           <div id="focus-container"></div>
           <form><input type="text" /></form>
         </article>
-      </section>
+      </section> -->
     </section>
     <section id="bottom-row">
       <section id="bottom-left">
         <article id="photo-info"><span>Photo</span></article>
       </section>
       <section id="bottom-right">
-        <!-- focus를 지우고 그 위치에 todo를 둘지 고민 중-->
         <article id="todo">
           <button id="todo-btn">
             <span>Todo</span>
@@ -99,6 +97,7 @@
       </section>
     </section>
     <script src="js/common.js"></script>
+    <script src="js/background.js"></script>
     <script src="js/links.js"></script>
     <script src="js/times.js"></script>
     <script src="js/mantra.js"></script>
