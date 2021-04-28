@@ -1,6 +1,12 @@
+#links a {
+    color :inherit;
+    text-decoration: none;
+}
+
 #links form {
     display: flex;
     flex-direction: column;
+    padding : 10px 0px;
 }
 #links label {
     margin : 0px 10px;
@@ -10,7 +16,8 @@
 #links input {
     margin : 5px 20px;
 }
-#links input[type=text] {
+#links input[type=text],
+#links input[type=url] {
     color:#485460;
     background-color: transparent;
     border:none;
@@ -31,8 +38,12 @@
     text-shadow: none;
     margin-top: 10px;
     padding: 5px;
+    max-height: 250px;
+    overflow-y: scroll;
 }
-
+#links-list::-webkit-scrollbar {
+    display: none;
+}
 #links-list li {
     display:flex;
     justify-content: space-between;
@@ -47,16 +58,6 @@
     font-size: 1.1rem;
 }
 
-#new-link-tab {
-    background-color: white;
-    border-radius: 5px;
-    color : #485460;
-    text-shadow : none;
-    margin-top: 10px;
-}
-#new-link-tab input[type=submit]{
-    width: 180px;
-}
 .link-more {
     background-color: white;
     color: #485460;

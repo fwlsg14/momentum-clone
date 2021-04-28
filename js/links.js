@@ -96,11 +96,13 @@ links.checkNumberOfLinks = function () {
 links.createEditLinkTab = function (number) {
   //create container
   const div = document.createElement("div");
-  const divClass = document.createAttribute("class");
+  // const divClass = document.createAttribute("class");
   const divId = document.createAttribute("id");
-  divClass.value = `hidden link-more`;
+  //divClass.value = `.hidden link-more`;
+  div.classList.add(`hidden`);
+  div.classList.add(`link-more`);
   divId.value = `link-${number}__more`;
-  div.setAttributeNode(divClass);
+  // div.setAttributeNode(divClass);
   div.setAttributeNode(divId);
   //create form
   const form = document.createElement("form");
@@ -114,11 +116,13 @@ links.createEditLinkTab = function (number) {
   const input = document.createElement("input");
   const inputId = document.createAttribute("id");
   const inputValue = document.createAttribute("value");
+  const required = document.createAttribute("required")
   inputId.value = `link-${number}-name`;
   inputValue.value = `${links.LinkList[`linkName_${number}`]}`;
   input.type = `text`
   input.setAttributeNode(inputId);
   input.setAttributeNode(inputValue);
+  input.setAttributeNode(required);
   //create url-input
   const label2 = document.createElement("label");
   const label2For = document.createAttribute("for");
@@ -129,11 +133,13 @@ links.createEditLinkTab = function (number) {
   const input2 = document.createElement("input");
   const input2Id = document.createAttribute("id");
   const input2Value = document.createAttribute("value");
+  const required2 = document.createAttribute("required")
   input2Id.value = `link-${number}-url`;
   input2Value.value = `${links.LinkList[`linkURL_${number}`]}`;
-  input2.type = `text`
+  input2.type = `url`
   input2.setAttributeNode(input2Id);
   input2.setAttributeNode(input2Value);
+  input2.setAttributeNode(required2);
   //create submit-input
   const input3 = document.createElement("input");
   const input3Id = document.createAttribute("value");
@@ -167,7 +173,7 @@ links.editLink = function (number, name, URL) {
   const link = LINK_LIST.querySelector(`#link-${number}`);
   const anchor = link.querySelector("a");
   anchor.innerText = `${name}`;
-  anchor.setAttribute("href", `https://${URL}`);
+  anchor.setAttribute("href", `${URL}`);
   links.LinkList[`linkName_${number}`] = name;
   links.LinkList[`linkURL_${number}`] = URL;
 };
@@ -195,7 +201,7 @@ links.createLink = function (number, name, URL) {
   const anchorText = document.createTextNode(`${name}`);
   anchor.appendChild(anchorText);
   const anchorHref = document.createAttribute("href");
-  anchorHref.value = `https://${URL}`;
+  anchorHref.value = `${URL}`;
   anchor.setAttributeNode(anchorHref);
   div.appendChild(anchor);
   //create button
@@ -213,7 +219,7 @@ links.createLink = function (number, name, URL) {
   list.appendChild(button);
   //insert under link-list
   if (number === 0) {
-    LINK_LIST.insertAdjacentElement("afterbegin", list);
+    LINK_LIST.insertAdjacentElement("beforeend", list);
   } else {
     LINK_LIST.querySelector(`#link-${number - 1}`).insertAdjacentElement(
       "afterend",
@@ -258,6 +264,7 @@ links.createLink = function (number, name, URL) {
         }
       }
     }
+    hide(NEWLINK_TAB);
     toggleHidden(LINKS.querySelector(`#link-${number}__more`));
   };
   links.ButtonEvent[`deleteLink_${number}`] = function () {
@@ -305,7 +312,7 @@ links.createLinkList = function () {
   span.appendChild(icon);
   span.appendChild(spanText);
   link.appendChild(span);
-  LINK_LIST.insertAdjacentElement("beforeend", link);
+  LINK_LIST.insertAdjacentElement("afterbegin", link);
   console.log(`${amount}개 링크 생성 완료`);
 };
 //새로운 링크 제출 감지
@@ -328,6 +335,13 @@ links.toggleLinks = function () {
 };
 //새 링크 탭 토글 버튼
 links.toggleNewLinkTab = function () {
+  const i = links.checkNumberOfLinks().number;
+    for (let j = 0; j < i; j++) {
+      let tab = LINKS.querySelector(`#link-${j}__more`);
+      if (!tab.classList.contains("hidden")) {
+        hide(tab);
+      }
+    }
   toggleHidden(NEWLINK_TAB);
 };
 //버튼 클릭 감지

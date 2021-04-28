@@ -1,8 +1,8 @@
 @import "reset.css";
 @import "colors.css";
-@import "common.css";
 
 @import "links.css";
 @import "background.css";
 @import "weather.css";
 
+@import "common.css";
