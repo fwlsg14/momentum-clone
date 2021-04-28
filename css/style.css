@@ -1,34 +1,8 @@
-#time-section,
-#mantra-section {
-  padding: 50px;
-}
-body {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  /* height: 100vh; */
-}
-#top-row {
-  display: flex;
-  justify-content: space-between;
-}
-#center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.hidden {
-  display: none;
-}
-.todo-checked {
-  text-decoration: line-through;
-  font-style: italic;
-}
-.background-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-}
+@import "reset.css";
+@import "colors.css";
+@import "common.css";
+
+@import "links.css";
+@import "background.css";
+@import "weather.css";
+

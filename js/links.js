@@ -98,7 +98,7 @@ links.createEditLinkTab = function (number) {
   const div = document.createElement("div");
   const divClass = document.createAttribute("class");
   const divId = document.createAttribute("id");
-  divClass.value = `hidden`;
+  divClass.value = `hidden link-more`;
   divId.value = `link-${number}__more`;
   div.setAttributeNode(divClass);
   div.setAttributeNode(divId);
@@ -116,6 +116,7 @@ links.createEditLinkTab = function (number) {
   const inputValue = document.createAttribute("value");
   inputId.value = `link-${number}-name`;
   inputValue.value = `${links.LinkList[`linkName_${number}`]}`;
+  input.type = `text`
   input.setAttributeNode(inputId);
   input.setAttributeNode(inputValue);
   //create url-input
@@ -130,6 +131,7 @@ links.createEditLinkTab = function (number) {
   const input2Value = document.createAttribute("value");
   input2Id.value = `link-${number}-url`;
   input2Value.value = `${links.LinkList[`linkURL_${number}`]}`;
+  input2.type = `text`
   input2.setAttributeNode(input2Id);
   input2.setAttributeNode(input2Value);
   //create submit-input
@@ -176,11 +178,9 @@ links.deleteLink = function (number) {
   //Remove Local Storage Item
   localStorage.removeItem(`link_${number}_name`);
   localStorage.removeItem(`link_${number}_URL`);
-  //Refresh  새로고침 하지 않은 상태에서 작동되도록 만들고 싶었으나 여러가지 오류가 발생
-  //element의 id가 변경되지 않아 새로운 링크가 지워진 링크 위치에 만들어지는 문제
-  //input의 value가 이미 있던 value로 고정되는 문제
+
   history.go(0);
-  // window.location.reload();
+
 };
 //링크 만들기
 links.createLink = function (number, name, URL) {
@@ -301,9 +301,9 @@ links.createLinkList = function () {
   iconClass.value = "fas fa-plus";
   icon.setAttributeNode(iconClass);
   const span = document.createElement("span");
-  const spanText = document.createTextNode("New Link");
+  const spanText = document.createTextNode(" New Link");
+  span.appendChild(icon);
   span.appendChild(spanText);
-  link.appendChild(icon);
   link.appendChild(span);
   LINK_LIST.insertAdjacentElement("beforeend", link);
   console.log(`${amount}개 링크 생성 완료`);

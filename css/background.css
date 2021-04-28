@@ -1,0 +1,23 @@
+#photo-info a {
+    color:var(--brighter-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px var(--darker-color);
+}
+#photo-info div {
+    padding: 2px;
+    max-width: 400px;
+    max-height: 50px;
+    overflow-y: scroll;
+}
+#photo-info div::-webkit-scrollbar {
+    display: none;
+}
+#photo-info i {
+    margin-right: 4px;
+}
+#photo-info p {
+    font-size: 0.9rem;
+    color:var(--brighter-color);
+    text-shadow: 1px 1px 2px var(--darker-color);
+}

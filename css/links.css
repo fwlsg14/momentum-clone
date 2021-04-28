@@ -1,0 +1,84 @@
+#links form {
+    display: flex;
+    flex-direction: column;
+}
+#links label {
+    margin : 0px 10px;
+    color: #485460;
+    font-weight: 500;
+}
+#links input {
+    margin : 5px 20px;
+}
+#links input[type=text] {
+    color:#485460;
+    background-color: transparent;
+    border:none;
+    border-bottom: 1.5px solid #485460;
+}
+#links input[type=submit]{
+    border-radius: 5px;
+    background-color: #485460;
+    color: white;
+    border : 2px outset #808e9b;
+    width: 160px;
+    height: 25px;
+}
+#links-list {
+    background-color: white;
+    border-radius:5px;
+    color: #485460;
+    text-shadow: none;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+#links-list li {
+    display:flex;
+    justify-content: space-between;
+    width : 200px;
+    /* max-width: 200px; */
+    font-size: 1.1rem;
+    margin: 5px 10px;
+}
+
+#links-list li i {
+    color:#485460;
+    font-size: 1.1rem;
+}
+
+#new-link-tab {
+    background-color: white;
+    border-radius: 5px;
+    color : #485460;
+    text-shadow : none;
+    margin-top: 10px;
+}
+#new-link-tab input[type=submit]{
+    width: 180px;
+}
+.link-more {
+    background-color: white;
+    color: #485460;
+    text-shadow: none;
+    border-radius: 5px;
+    width: 200px;
+    position: absolute;
+    left:250px;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.link-more form {
+    padding: 10px 0px;
+}
+.link-more button {
+    border-radius: 5px;
+    background-color: #485460;
+    color: white;
+    border : 2px outset #808e9b;
+    width: 160px;
+    height: 25px;
+    margin-bottom: 10px;
+}
