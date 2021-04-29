@@ -4,14 +4,14 @@ body {
 }
 button {
   background-color: transparent;
-  border : none;
+  border: none;
 }
-article{
+article {
   padding: 10px;
 }
 ul {
   list-style: none;
-  padding : 0px 10px;
+  padding: 0px 10px;
 }
 
 input:focus {
@@ -36,9 +36,10 @@ input:focus {
   height: 33vh;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 .todo-checked {
+  color: var(--bright-color);
   text-decoration: line-through;
   font-style: italic;
 }
@@ -54,5 +55,12 @@ input:focus {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--brighter-color);
-  text-shadow: 1px 1px 2px var(--darker-color);
+  text-shadow: var(--text-shadow);
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.relative {
+  position: relative;
 }

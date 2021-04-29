@@ -21,7 +21,6 @@ links.init = function () {
 
 //로컬 스토리지 확인
 links.checkLocalStorage = function () {
-  console.log("로컬 스토리지에 저장된 링크 데이터의 유효성 확인");
   let i = 0;
   let name;
   let URL;
@@ -29,10 +28,8 @@ links.checkLocalStorage = function () {
     name = localStorage.getItem(`link_${i}_name`);
     URL = localStorage.getItem(`link_${i}_URL`);
     if (name === null) {
-      console.log(`link_${i}이 유효하지 않습니다.`);
       break;
     } else if (URL === null) {
-      console.log(`link_${i}_URL이 유효하지 않습니다.`);
       break;
     } else {
       i++;
@@ -41,9 +38,6 @@ links.checkLocalStorage = function () {
   name = localStorage.getItem(`link_${i + 1}_name`);
   URL = localStorage.getItem(`link_${i + 1}_URL`);
   if (name === null || URL === null) {
-    console.log(
-      `연속해서 유효하지 않은 값 발견 유효성 확인 종료 (위치 : ${i}, ${i + 1})`
-    );
     return { space: i };
   } else {
     let j = i + 1;
@@ -61,7 +55,6 @@ links.checkLocalStorage = function () {
         }
         localStorage.removeItem(`link_${j - 1}_name`);
         localStorage.removeItem(`link_${j - 1}_URL`);
-        console.log(`유효하지 않은 값 (${i}) 덮어쓰기 완료`);
         return { space: j - 1 };
       } else {
         j++;
@@ -72,12 +65,10 @@ links.checkLocalStorage = function () {
 //로컬 스토리지 불러오기
 links.loadLocalStorage = function () {
   const space = links.checkLocalStorage().space;
-  console.log(`${space}개의 링크 불러오는 중`);
   for (let j = 0; j < space; j++) {
     links.LinkList[`linkName_${j}`] = localStorage.getItem(`link_${j}_name`);
     links.LinkList[`linkURL_${j}`] = localStorage.getItem(`link_${j}_URL`);
   }
-  console.log(`링크 불러오기 완료`);
   return {
     amount: space,
   };
@@ -116,10 +107,10 @@ links.createEditLinkTab = function (number) {
   const input = document.createElement("input");
   const inputId = document.createAttribute("id");
   const inputValue = document.createAttribute("value");
-  const required = document.createAttribute("required")
+  const required = document.createAttribute("required");
   inputId.value = `link-${number}-name`;
   inputValue.value = `${links.LinkList[`linkName_${number}`]}`;
-  input.type = `text`
+  input.type = `text`;
   input.setAttributeNode(inputId);
   input.setAttributeNode(inputValue);
   input.setAttributeNode(required);
@@ -133,10 +124,10 @@ links.createEditLinkTab = function (number) {
   const input2 = document.createElement("input");
   const input2Id = document.createAttribute("id");
   const input2Value = document.createAttribute("value");
-  const required2 = document.createAttribute("required")
+  const required2 = document.createAttribute("required");
   input2Id.value = `link-${number}-url`;
   input2Value.value = `${links.LinkList[`linkURL_${number}`]}`;
-  input2.type = `url`
+  input2.type = `url`;
   input2.setAttributeNode(input2Id);
   input2.setAttributeNode(input2Value);
   input2.setAttributeNode(required2);
@@ -157,6 +148,7 @@ links.createEditLinkTab = function (number) {
   buttonId.value = `link-${number}-delete`;
   button.setAttributeNode(buttonId);
   button.appendChild(buttonSpan);
+  button.classList.add(`like-submit`);
   //merge
   form.appendChild(label);
   form.appendChild(input);
@@ -186,7 +178,6 @@ links.deleteLink = function (number) {
   localStorage.removeItem(`link_${number}_URL`);
 
   history.go(0);
-
 };
 //링크 만들기
 links.createLink = function (number, name, URL) {
@@ -240,7 +231,10 @@ links.createLink = function (number, name, URL) {
       "mousedown",
       links.ButtonEvent[`toggleMoreButton_${number}`]
     );
-    deleteButton.addEventListener("mousedown", links.ButtonEvent[`deleteLink_${number}`]);
+    deleteButton.addEventListener(
+      "mousedown",
+      links.ButtonEvent[`deleteLink_${number}`]
+    );
   };
   links.ButtonEvent[`editLink_${number}`] = function (event) {
     event.preventDefault();
@@ -271,7 +265,6 @@ links.createLink = function (number, name, URL) {
     links.deleteLink(number);
   };
   links.ButtonEvent[`detectButtonEventLink_${number}`](number);
-  console.log(`${number}번째 링크 생성 완료`);
 };
 //새로운 링크 만들기
 links.handleNewLinkSubmit = function (event) {
@@ -284,8 +277,12 @@ links.handleNewLinkSubmit = function (event) {
   NEWLINK_URL.value = "";
   localStorage.setItem(`link_${space}_name`, name);
   localStorage.setItem(`link_${space}_URL`, URL);
-  links.LinkList[`linkName_${space}`] = localStorage.getItem(`link_${space}_name`);
-  links.LinkList[`linkURL_${space}`] = localStorage.getItem(`link_${space}_URL`);
+  links.LinkList[`linkName_${space}`] = localStorage.getItem(
+    `link_${space}_name`
+  );
+  links.LinkList[`linkURL_${space}`] = localStorage.getItem(
+    `link_${space}_URL`
+  );
   links.createLink(space, name, URL);
 };
 //링크 리스트 만들기
@@ -313,7 +310,6 @@ links.createLinkList = function () {
   span.appendChild(spanText);
   link.appendChild(span);
   LINK_LIST.insertAdjacentElement("afterbegin", link);
-  console.log(`${amount}개 링크 생성 완료`);
 };
 //새로운 링크 제출 감지
 links.getNewLink = function () {
@@ -336,12 +332,12 @@ links.toggleLinks = function () {
 //새 링크 탭 토글 버튼
 links.toggleNewLinkTab = function () {
   const i = links.checkNumberOfLinks().number;
-    for (let j = 0; j < i; j++) {
-      let tab = LINKS.querySelector(`#link-${j}__more`);
-      if (!tab.classList.contains("hidden")) {
-        hide(tab);
-      }
+  for (let j = 0; j < i; j++) {
+    let tab = LINKS.querySelector(`#link-${j}__more`);
+    if (!tab.classList.contains("hidden")) {
+      hide(tab);
     }
+  }
   toggleHidden(NEWLINK_TAB);
 };
 //버튼 클릭 감지

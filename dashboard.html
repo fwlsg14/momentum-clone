@@ -11,7 +11,7 @@
     <section id="top-row">
       <section id="top-left">
         <article id="links">
-          <button id="links-btn" class = "main-button">
+          <button id="links-btn" class="main-button">
             <span>Links</span>
           </button>
           <div id="links-container" class="hidden">
@@ -20,9 +20,19 @@
           <div id="new-link-tab" class="hidden link-more">
             <form>
               <label for="new-link-name">Name</label>
-              <input type="text" id="new-link-name" required placeholder="Name" />
+              <input
+                type="text"
+                id="new-link-name"
+                required
+                placeholder="Name"
+              />
               <label for="new-link-url">Link</label>
-              <input type="url" id="new-link-url" required placeholder="https://example.com" />
+              <input
+                type="url"
+                id="new-link-url"
+                required
+                placeholder="https://example.com"
+              />
               <input type="submit" value="Create" />
             </form>
           </div>
@@ -31,7 +41,7 @@
       <section id="top-right">
         <article id="weather">
           <div id="weather-brief"></div>
-          <!-- <div id="weather-detail"></div> 내용이 너무 방대해진다 -->
+          <div id="weather-detail"></div>
         </article>
       </section>
     </section>
@@ -39,13 +49,17 @@
       <section id="time-section">
         <article id="normal-clock">
           <time>00:00</time>
-          <button id="normal-clock__btn" class="hidden">
-            <i class="fas fa-ellipsis-h"></i>
-          </button>
-          <div id="normal-clock__menu" class="hidden">
-            <ul>
-              <li id="toggle-24-hour">24-hour clock</li>
-            </ul>
+          <div class="relative">
+            <button id="normal-clock__btn" class="hidden">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+            <div id="normal-clock__menu" class="hidden">
+              <ul>
+                <li id="toggle-24-hour">
+                  <input type="checkbox" /><span>24-hour clock</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </article>
       </section>
@@ -56,25 +70,20 @@
         </form>
         <article id="mantra">
           <p></p>
-          <button id="mantra__btn" class="hidden">
-            <i class="fas fa-ellipsis-h"></i>
-          </button>
-          <div id="mantra__menu" class="hidden">
-            <ul>
-              <li id="edit-name-btn">
-                <span>Edit your name</span>
-              </li>
-            </ul>
+          <div class="relative">
+            <button id="mantra__btn" class="hidden">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+            <div id="mantra__menu" class="hidden">
+              <ul>
+                <li id="edit-name-btn">
+                  <span>Edit your name</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </article>
       </section>
-      <!-- 효용성에 의문이 든다 지울지 고민 중 -->
-      <!-- <section id="focus-section">
-        <article id="focus">
-          <div id="focus-container"></div>
-          <form><input type="text" /></form>
-        </article>
-      </section> -->
     </section>
     <section id="bottom-row">
       <section id="bottom-left">
@@ -82,15 +91,22 @@
       </section>
       <section id="bottom-right">
         <article id="todo">
-          <button id="todo-btn" class = "main-button">
+          <button id="todo-btn" class="main-button">
             <span>Todo</span>
           </button>
           <div id="todo-container" class="hidden">
-            <button id="new-todo-btn"><i class="far fa-plus-square"></i></button>
+            <button id="new-todo-btn" class="list-button">
+              <i class="far fa-plus-square"></i>
+            </button>
             <form id="new-todo-form" class="hidden">
               <label for="new-todo-name">Name</label>
-              <input type="text" id="new-todo-name" />
-              <input type="submit" value="Add" />
+              <input
+                type="text"
+                id="new-todo-name"
+                required
+                placeholder="New Todo List"
+              />
+              <input type="submit" value="Add Todo List" />
             </form>
           </div>
         </article>

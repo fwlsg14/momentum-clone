@@ -59,15 +59,18 @@ times.normalClockTime = function () {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
+  const checkbox = TOGGLE_24_HOUR.querySelector(`input`);
 
   if (times.twentyFourClockBoolen !== false) {
-    NORMAL_TIME.innerText = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}:${
-      seconds < 10 ? `0${seconds}` : seconds
-    }`;
+    NORMAL_TIME.innerText = `${hours}:${
+      minutes < 10 ? `0${minutes}` : minutes
+    }:${seconds < 10 ? `0${seconds}` : seconds}`;
+    checkbox.checked = true;
   } else {
     NORMAL_TIME.innerText = `${hours > 12 ? `${hours % 12}` : hours}:${
       minutes < 10 ? `0${minutes}` : minutes
     }:${seconds < 10 ? `0${seconds}` : seconds}`;
+    checkbox.checked = false;
   }
 };
 //1초 인터벌

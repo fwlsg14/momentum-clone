@@ -32,7 +32,10 @@ weather.getlocation = function () {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         weather.currentLocation = { latitude, longitude };
-        localStorage.setItem(`location`, JSON.stringify(weather.currentLocation));
+        localStorage.setItem(
+          `location`,
+          JSON.stringify(weather.currentLocation)
+        );
       },
       function () {
         console.log(`Geolocation is not supported by this browser.`);
@@ -56,7 +59,6 @@ weather.getWeather = function () {
         return response.json();
       }) //날씨 불러오기
       .then((json) => {
-        console.log(json);
         object = {
           name: json.name,
           feelsTemp: json.main.feels_like,
@@ -86,8 +88,8 @@ weather.getWeather = function () {
         const weatherIcon = object.weatherIcon;
         const tempKelvin = object.temp;
         const name = object.name;
-        console.log(weatherIcon, tempKelvin, name);
         //element 생성
+        const row = document.createElement("div");
         const img = document.createElement("img");
         const src = document.createAttribute("src");
         src.value = `http://openweathermap.org/img/wn/${weatherIcon}.png`;
@@ -95,12 +97,17 @@ weather.getWeather = function () {
         const tempSpan = document.createElement("span");
         const tempCelsius = tempKelvin - 273.15;
         tempSpan.innerText = `${tempCelsius}ºC`;
+        row.appendChild(img);
+        row.appendChild(tempSpan);
+        row.classList.add(`row`);
         const location = document.createElement("p");
         location.innerText = `${name}`;
+        const row2 = document.createElement("div");
+        row2.appendChild(location);
+        row2.classList.add(`row`);
         //element #weather-brief에 넣기
-        WEATHER_BRIEF.appendChild(img);
-        WEATHER_BRIEF.appendChild(tempSpan);
-        WEATHER_BRIEF.appendChild(location);
+        WEATHER_BRIEF.appendChild(row);
+        WEATHER_BRIEF.appendChild(row2);
       });
   }
 };

@@ -1,0 +1,8 @@
+#weather-brief {
+  position: relative;
+  top: -10px;
+  right: 0;
+  font-size: 1.1rem;
+  color: var(--brighter-color);
+  text-shadow: var(--text-shadow);
+}

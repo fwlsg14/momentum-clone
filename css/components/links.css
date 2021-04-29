@@ -1,0 +1,83 @@
+#links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#links form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px;
+}
+#links label {
+  margin: 0px 10px;
+  color: var(--darker-color);
+  font-weight: 500;
+}
+#links input {
+  margin: 5px 20px;
+}
+#links input[type="text"],
+#links input[type="url"] {
+  color: var(--dark-color);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--darker-color);
+}
+#links input[type="submit"] {
+  border-radius: 5px;
+  background-color: var(--dark-color);
+  color: var(--brighter-color);
+  border: 2px outset var(--bright-color);
+  width: 160px;
+  height: 25px;
+}
+#links-list {
+  background-color: var(--brighter-color);
+  border-radius: 10px;
+  color: var(--darker-color);
+  text-shadow: none;
+  margin-top: 10px;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+#links-list::-webkit-scrollbar {
+  display: none;
+}
+#links-list li {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  font-size: 1.1rem;
+  margin: 5px 10px;
+}
+
+#links-list li i {
+  color: var(--darker-color);
+  font-size: 1.1rem;
+}
+
+.link-more {
+  background-color: var(--brighter-color);
+  text-shadow: none;
+  border-radius: 10px;
+  width: 200px;
+  position: absolute;
+  left: 260px;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.link-more form {
+  padding: 10px 0px;
+}
+.link-more .like-submit {
+  border-radius: 5px;
+  background-color: var(--dark-color);
+  color: var(--brighter-color);
+  border: 2px outset var(--bright-color);
+  width: 160px;
+  height: 25px;
+  margin-bottom: 10px;
+}

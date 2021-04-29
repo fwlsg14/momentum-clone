@@ -27,92 +27,91 @@ background.loadImage = function (number) {
   const author = imgInfo.author;
   const webPage = imgInfo.webPage;
   const location = imgInfo.location;
-  const desc = imgInfo.desc;  
+  const desc = imgInfo.desc;
   //이미지 정보 표시
   const a = document.createElement(`a`);
-  const line = document.createElement(`div`);
-  const line2 =document.createElement(`div`);
+  const row = document.createElement(`div`);
+  const row2 = document.createElement(`div`);
   const authorSpan = document.createElement(`span`);
   const icon = document.createElement(`i`);
-  const iconClass = document.createAttribute('class')
+  const iconClass = document.createAttribute("class");
   const locationSpan = document.createElement(`span`);
-  const line3 =document.createElement(`div`);
+  const row3 = document.createElement(`div`);
   const p = document.createElement(`p`);
   a.href = webPage;
   authorSpan.innerText = author;
-  iconClass.value = `fas fa-map-marker-alt`
+  iconClass.value = `fas fa-map-marker-alt`;
   icon.setAttributeNode(iconClass);
   locationSpan.innerText = location;
   p.innerText = desc;
-  line.appendChild(authorSpan);
-  line2.appendChild(icon);
-  line2.appendChild(locationSpan);
-  line3.appendChild(p);
-  a.appendChild(line);
-  a.appendChild(line2);
+  row.appendChild(authorSpan);
+  row2.appendChild(icon);
+  row2.appendChild(locationSpan);
+  row3.appendChild(p);
+  a.appendChild(row);
+  a.appendChild(row2);
   document.querySelector(`#photo-info`).appendChild(a);
-  document.querySelector(`#photo-info`).appendChild(line3);
-
+  document.querySelector(`#photo-info`).appendChild(row3);
 };
 
-background.srcInfo =function () {
-  return object = {
+background.srcInfo = function () {
+  return (object = {
     1: {
       author: "Jamie Davies",
       webPage: "https://unsplash.com/@jamie_davies",
       location: "Sydney, Australia",
-      desc: "Birds Eye View of Sydney"
+      desc: "Birds Eye View of Sydney",
     },
     2: {
       author: "Luca Bravo",
       webPage: "https://unsplash.com/@lucabravo",
       location: "Lago di Braies",
-      desc: "Boathouse on a mountain lake"
+      desc: "Boathouse on a mountain lake",
     },
     3: {
       author: "Lucas Metz",
       webPage: "https://unsplash.com/@lucashew",
       location: "Uyuni desert, Bolivia",
-      desc: "Uyuni salt desert in Bolivia at sunrise, after a rainy day. We were very lucky because it rained the day before. As a consequence, the desert was covered by water. During the night, the water went away and when we woke up for the sunrise, only a tiny amount of water was still here, transforming the desert into a giant mirror."
+      desc:
+        "Uyuni salt desert in Bolivia at sunrise, after a rainy day. We were very lucky because it rained the day before. As a consequence, the desert was covered by water. During the night, the water went away and when we woke up for the sunrise, only a tiny amount of water was still here, transforming the desert into a giant mirror.",
     },
     4: {
       author: "Lucas Wesney",
       webPage: "https://unsplash.com/@wesnext",
       location: "Dolomites, Campitello di Fassa, Trentino, Italy",
-      desc: "@wesnext_photography for more. @lukewesney for more."
+      desc: "@wesnext_photography for more. @lukewesney for more.",
     },
     5: {
       author: "Ken Cheung",
       webPage: "https://unsplash.com/@kencheungphoto",
       location: "Iceland",
-      desc: ""
+      desc: "",
     },
     6: {
       author: "Karthik Sreenivas",
       webPage: "https://unsplash.com/@karthik_sreenivas",
       location: "Horseshoe Bend, Arizona, USA",
-      desc: "Horseshoe bend"
+      desc: "Horseshoe bend",
     },
     7: {
       author: "Michal Mrozek",
       webPage: "https://unsplash.com/@miqul",
       location: "Gibraltar",
-      desc: ""
+      desc: "",
     },
     8: {
       author: "Sung Shin",
       webPage: "https://unsplash.com/@ironstagram",
       location: "서귀포시 성산읍 성산 일출봉",
-      desc: "Sunrise,"
+      desc: "Sunrise,",
     },
     9: {
       author: "Ansar Naib",
       webPage: "https://unsplash.com/@ansar2k21",
       location: "Barcelona, Spain",
-      desc: ""
-    }
-  }
-}
-
+      desc: "",
+    },
+  });
+};
 
 background.init();

@@ -71,14 +71,12 @@ todo.handleCheckboxEvent = function (event) {
     list.classList.add(`todo-checked`);
     //array에 check변수 변경
     todo[`${ulId}`][id].checked = true;
-    console.log(todo[`${ulId}`][id]);
     //array를 로컬스토리지에 저장
     localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
   } else {
     list.classList.remove(`todo-checked`);
     //array에 check변수 변경
     todo[`${ulId}`][id].checked = false;
-    console.log(todo[`${ulId}`][id]);
     //array를 로컬스토리지에 저장
     localStorage.setItem(`${ulId}`, JSON.stringify(todo[`${ulId}`]));
   }
@@ -117,7 +115,7 @@ todo.handleNewTodoSubmit = function (event) {
   const form = event.target;
   const ul = form.parentNode;
   const ulId = ul.id;
-  const input = form.lastElementChild;
+  const input = form.querySelector("input[type=text]");
   const inputValue = input.value;
   input.value = "";
   //todo 생성하기
@@ -134,17 +132,27 @@ todo.createTodoTab = function (ulId) {
   ul.classList.add("hidden");
   const ulForm = document.createElement("form");
   const ulInput = document.createElement("input");
+  const ulSubmit = document.createElement("input");
+  const required = document.createAttribute("required");
+  const typeText = document.createAttribute("type");
+  typeText.value = `text`;
+  ulInput.setAttributeNode(required);
+  ulInput.setAttributeNode(typeText);
   ulInput.placeholder = "New Todo";
+  ulSubmit.type = `submit`;
+  ulSubmit.value = `Add Todo`;
   //form에 event를 만든다
-  todo.getNewTodo(ulForm);
   ulForm.appendChild(ulInput);
+  ulForm.appendChild(ulSubmit);
+  todo.getNewTodo(ulForm);
   ul.appendChild(ulForm);
   //delete-button을 만든다 todoToday는 만들지 않는다
   if (name !== "todoToday") {
     const deleteButton = document.createElement("button");
     const span2 = document.createElement("span");
-    span2.innerText = `Delete Tab`;
+    span2.innerText = `Delete List`;
     deleteButton.appendChild(span2);
+    deleteButton.classList.add(`like-submit`);
     //delete-button에 event를 만든다
     deleteButton.addEventListener("mousedown", todo.deleteTodoTab);
     //delete-button은 맨뒤에 넣는다
@@ -155,6 +163,7 @@ todo.createTodoTab = function (ulId) {
   //button element 생성
   const button = document.createElement("button");
   button.id = `${name}-btn`;
+  button.classList.add(`list-button`);
   const span = document.createElement("span");
   if (name === "todoToday") {
     span.innerText = "Today";
@@ -213,7 +222,10 @@ todo.createTodo = function (ulId, text, checked) {
   if (newId === 0) {
     ul.insertAdjacentElement("afterbegin", list);
   } else {
-    ul.querySelector(`#${ulId}${newId - 1}`).insertAdjacentElement("afterend", list);
+    ul.querySelector(`#${ulId}${newId - 1}`).insertAdjacentElement(
+      "afterend",
+      list
+    );
   }
   //array에 넣기
   const object = {

@@ -1,8 +1,11 @@
 @import "reset.css";
-@import "colors.css";
+@import "variables.css";
 
-@import "links.css";
-@import "background.css";
-@import "weather.css";
+@import "components/links.css";
+@import "components/background.css";
+@import "components/weather.css";
+@import "components/todo.css";
+@import "components/times.css";
+@import "components/mantra.css";
 
 @import "common.css";

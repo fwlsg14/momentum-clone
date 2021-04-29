@@ -1,0 +1,44 @@
+#new-username {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  color: var(--brighter-color);
+  text-shadow: var(--text-shadow);
+  font-size: 40px;
+}
+#new-username input {
+  margin-top: 20px;
+  color: var(--brighter-color);
+  font-size: 30px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2.5px solid var(--brighter-color);
+}
+#mantra {
+  display: flex;
+  align-items: center;
+}
+#mantra p {
+  color: var(--brighter-color);
+  font-size: 40px;
+  text-shadow: var(--text-shadow);
+}
+
+#mantra button {
+  font-size: 30px;
+  color: var(--brighter-color);
+  /* margin-top: 20px;/ */
+  margin-left: 10px;
+  text-shadow: var(--text-shadow);
+}
+#mantra__menu {
+  background-color: var(--brighter-color);
+  color: var(--darker-color);
+  width: 180px;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}

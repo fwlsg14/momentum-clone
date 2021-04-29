@@ -1,0 +1,27 @@
+#normal-clock {
+  color: var(--brighter-color);
+  display: flex;
+  align-items: center;
+}
+#normal-clock time {
+  font-size: 120px;
+  text-shadow: var(--text-shadow);
+}
+
+#normal-clock button {
+  font-size: 40px;
+  color: var(--brighter-color);
+  margin-top: 20px;
+  margin-left: 20px;
+  text-shadow: var(--text-shadow);
+}
+#normal-clock__menu {
+  background-color: var(--brighter-color);
+  color: var(--darker-color);
+  width: 180px;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+}

@@ -22,12 +22,29 @@ mantra.usernameCheck = function () {
   if (username !== null) {
     hide(NEW_USERNAME);
     reveal(MANTRA);
-    MANTRA_TEXT.innerText = `Hello, ${username}`;
+    mantra.greetingDependOnTime(username);
   } else {
     reveal(NEW_USERNAME);
     hide(MANTRA);
   }
   console.log(`UserName = ${username}`);
+};
+//시간에 따른 인사말 출력
+mantra.greetingDependOnTime = function (username) {
+  const time = new Date();
+  const hour = time.getHours();
+  console.log(hour);
+  if (11 >= hour && hour >= 5) {
+    MANTRA_TEXT.innerText = `Good morning, ${username}`;
+  } else if (17 >= hour && hour >= 12) {
+    MANTRA_TEXT.innerText = `Good afternoon, ${username}`;
+  } else if (23 >= hour && hour >= 18) {
+    MANTRA_TEXT.innerText = `Good evening, ${username}`;
+  } else if (hour === 24 || hour < 5) {
+    MANTRA_TEXT.innerText = `Good night, ${username}`;
+  } else {
+    MANTRA_TEXT.innerText = `Hello, ${username}`;
+  }
 };
 //마우스 이벤트 처리
 mantra.revealMantraButton = function () {

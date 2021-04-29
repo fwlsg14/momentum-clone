@@ -1,0 +1,7 @@
+:root {
+  --darker-color: #1e272e;
+  --dark-color: #485460;
+  --bright-color: #808e9b;
+  --brighter-color: white;
+  --text-shadow: 1px 1px 2px var(--darker-color);
+}
