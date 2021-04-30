@@ -77,5 +77,6 @@
   font-size: 1.1rem;
 }
 #todo-container .selected {
-  color: red;
+  color: var(--darker-color);
+  background-color: var(--bright-color);
 }

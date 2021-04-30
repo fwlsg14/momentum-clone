@@ -81,3 +81,7 @@
   height: 25px;
   margin-bottom: 10px;
 }
+
+#new-link {
+  cursor: pointer;
+}

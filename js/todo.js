@@ -15,6 +15,7 @@ todo.init = function () {
   todo.loadArrayList();
   todo.listenMouseEvents();
   TODO_CONTAINER.querySelector(`#todoToday`).classList.remove(`hidden`);
+  TODO_CONTAINER.querySelector(`#todoToday-btn`).classList.add(`selected`);
 };
 //마우스 이벤트 처리
 todo.toggleTodo = function () {
@@ -42,17 +43,30 @@ todo.checkOpenTabs = function () {
 //New Todo 탭 열기
 todo.openNewTodoTab = function () {
   const openTab = todo.checkOpenTabs();
+  const openTabId = openTab.id;
+  const openTabButton = TODO_CONTAINER.querySelector(`#${openTabId}-btn`);
   hide(openTab);
+  openTabButton.classList.remove(`selected`);
   reveal(NEW_TODO_FORM);
+  NEW_TODO_BTN.classList.add(`selected`);
 };
 //탭 열기
 todo.openTab = function (event) {
   const openTab = todo.checkOpenTabs();
+
+  if (openTab.tagName === `UL`) {
+    const openTabId = openTab.id;
+    const openTabButton = TODO_CONTAINER.querySelector(`#${openTabId}-btn`);
+    openTabButton.classList.remove(`selected`);
+  } else {
+    NEW_TODO_BTN.classList.remove(`selected`);
+  }
   hide(openTab);
   let button = event.target;
   if (button.tagName !== "BUTTON") {
     button = button.parentNode;
   }
+  button.classList.add(`selected`);
   const buttonId = button.id;
   const targetUlId = buttonId.slice(0, -4);
   const targetUl = TODO_CONTAINER.querySelector(`#${targetUlId}`);
@@ -102,7 +116,9 @@ todo.handleNewTodoTabSubmit = function (event) {
   todo.saveTodoTabs();
   //자동으로 tab 열기
   hide(NEW_TODO_FORM);
+  NEW_TODO_BTN.classList.remove(`selected`);
   reveal(TODO_CONTAINER.querySelector(`#${name}`));
+  TODO_CONTAINER.querySelector(`#${name}-btn`).classList.add(`selected`);
 };
 //새로운 Todo 감지
 todo.getNewTodo = function (target) {
@@ -313,7 +329,7 @@ todo.removeTodo = function (event) {
   });
   array.splice(deletePosition, 1);
   //array의 id 조정
-  if (array.length > 1) {
+  if (array.length >= 1) {
     let i = deletePosition + 1;
     let nextObject = array.find(function (object) {
       return object.id === `${ulId}${i}`;
@@ -333,7 +349,7 @@ todo.removeTodo = function (event) {
     }
   }
   //element id 조정
-  if (array.length > 1) {
+  if (array.length >= 1) {
     let i = deletePosition + 1;
     let nextElement = TODO_CONTAINER.querySelector(`#${ulId}`).querySelector(
       `#${ulId}${i}`
