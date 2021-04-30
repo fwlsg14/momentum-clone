@@ -53,7 +53,7 @@ weather.getWeather = function () {
     const lon = location.longitude;
     const apiKey = `0f097166a0d965593fdf60426de7630f`;
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
     )
       .then((response) => {
         return response.json();
