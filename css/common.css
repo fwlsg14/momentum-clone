@@ -5,6 +5,7 @@ body {
 button {
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 article {
   padding: 10px;
@@ -12,6 +13,9 @@ article {
 ul {
   list-style: none;
   padding: 0px 10px;
+}
+input[type="submit"] {
+  cursor: pointer;
 }
 
 input:focus {
@@ -21,19 +25,20 @@ input:focus {
 #top-row {
   display: flex;
   justify-content: space-between;
-  height: 33vh;
+  height: 20vh;
 }
 #center {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: 33vh;
+  height: 60vh;
 }
 #bottom-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  height: 33vh;
+  height: 20vh;
 }
 .hidden {
   display: none !important;

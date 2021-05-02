@@ -19,7 +19,8 @@
   display: flex;
   align-items: center;
 }
-#mantra p {
+#mantra p,
+#mantra label {
   color: var(--brighter-color);
   font-size: 40px;
   text-shadow: var(--text-shadow);
@@ -41,4 +42,7 @@
   position: absolute;
   top: 30px;
   left: 30px;
+}
+#edit-name-btn {
+  cursor: pointer;
 }
